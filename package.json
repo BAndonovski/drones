@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/BAndonovski/drones#readme",
   "dependencies": {
+    "geolib": "^2.0.24",
     "koa": "^2.5.2",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",

@@ -2,6 +2,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import cors from 'koa2-cors';
+import geolib from 'geolib';
 
 const app = new Koa();
 const router = new Router();
@@ -40,10 +41,12 @@ router.post('/', async (ctx, next) => {
   const timestamp = body.substring(32, 42);
   const geo = body.substring(42).split(',');
   const drone = drones[id];
-  let speed = 0;
-  if (drone !== undefined) {
-
-  }
+  const speed = drone !== undefined
+    ? Math.abs(geolib.getDistance(
+      { latitude: drone.latitude, longitude: drone.longitude },
+      { latitude: geo[0], longitude: geo[1] },
+    )) / (timestamp - drone.timestamp)
+    : 0;
 
   drones[id] = {
     timestamp,
@@ -52,8 +55,6 @@ router.post('/', async (ctx, next) => {
     speed,
   };
 
-  console.log(drones);
-  console.log('\n-----\n');
   ctx.status = 200;
   await next();
 });
