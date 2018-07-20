@@ -1,0 +1,60 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" ref="/index.css" />
+</head>
+
+<body>
+  <div id="app">
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Timestamp</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Speed</th>
+      </tr>
+      <tr v-for="drone, key in drones">
+        <td>{{ key }}</td>
+        <td>{{ drone.timestamp }}</td>
+        <td>{{ drone.latitude }}</td>
+        <td>{{ drone.longitude }}</td>
+        <td>{{ drone.speed }}</td>
+      </tr>
+    </table>
+  </div>
+</body>
+<script>
+  function refresh() {
+    fetch("api")
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (json) {
+        app.drones = json;
+      });
+  };
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      drones: {},
+    },
+    refresh: function () {
+      fetch("api")
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (json) {
+          app.drones = json;
+        });
+    },
+    created: function () {
+      refresh();
+      setInterval(refresh, 10000);
+    }
+  });
+</script>
+
+</html>

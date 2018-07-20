@@ -2,6 +2,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import cors from 'koa2-cors';
+import serve from 'koa-static';
 import geolib from 'geolib';
 
 const app = new Koa();
@@ -27,14 +28,15 @@ app.use(bodyParser({
   enableTypes: ['text'],
 }));
 
+app.use(serve('public'));
 
-router.get('/', async (ctx, next) => {
-  ctx.body = 'boom shaka laka';
+const drones = {};
+router.get('/api', async (ctx, next) => {
+  ctx.body = drones;
   await next();
 });
 
-const drones = {};
-router.post('/', async (ctx, next) => {
+router.post('/api', async (ctx, next) => {
   const { body } = ctx.request;
 
   const id = body.substring(0, 32);
