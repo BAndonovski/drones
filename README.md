@@ -28,3 +28,10 @@ Back end is done using koa and has only two end points:
 
 # Front end
 The front end is a simple one pager done with vue. Uses fetch to get data on a 10 second interval.
+
+# To run
+All you need is to run `docker build .` and connect to the 3000 port.
+
+
+# Author's notes: 
+I am aware that the styling and the separation of concerns are non existant in this assignment, but keep in mind that the approach taken is as a test assignment, not a real world project. Same as the specs.
