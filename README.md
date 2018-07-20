@@ -19,3 +19,12 @@ Since we need them to be cost effective, they're using this as a predefined form
 - latitude & longitude, decimal values, comma separated (length can be varying)
 Example:  
 `e199da18f05143b8be603162bdae0207153190422041.991755,21.407693`
+
+# Back end 
+Back end is done using koa and has only two end points: 
+- POST /api: used for posting drone updates
+- GET /api: used by the front end to get latest data
+- GET / used to access the front end
+
+# Front end
+The front end is a simple one pager done with vue. Uses fetch to get data on a 10 second interval.
